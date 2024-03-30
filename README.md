@@ -24,9 +24,9 @@ Features:
 
 ## Usage
 
-**Notes:**
-- Create a backup of your data before running the script.
-- Create test data. Run the script and check if the results meet your expectations.
+> [!NOTE]
+> - Create a backup of your data before running the script.
+> - Create test data. Run the script and check if the results meet your expectations.
 
 ### Search
 
