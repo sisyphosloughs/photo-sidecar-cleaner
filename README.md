@@ -19,7 +19,7 @@ Features:
 1. Download the script.
 2. Make the script executable: `chmod +x photo-sidecar-cleaner.sh`.
 
-Tip: The script creates temporary files. Install the script in its own directory.
+**Tip:** The script creates temporary files. Install the script in its own directory.
 
 ## Usage
 
