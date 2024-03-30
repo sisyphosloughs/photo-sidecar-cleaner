@@ -64,8 +64,8 @@ Find missing photos (Adobe Help)](https://helpx.adobe.com/lightroom-classic/help
 
 1. Switch to Library mode.
 2. Expand the Folder panel.
-3. Right-click on a folder and select the command `Synchronize Folder`.
-Note: Contrary to the term, this command does not synchronize with the cloud.
+3. Right-click on a folder and select the command `Synchronize Folder`.  
+  Note: This command does not synchronize with the cloud.
 4. Activate the option `Remove Missing Pictures`.
 
 Result: The catalog is updated.
