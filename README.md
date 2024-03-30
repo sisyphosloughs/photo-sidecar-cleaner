@@ -19,7 +19,8 @@ Features:
 1. Download the script.
 2. Make the script executable: `chmod +x photo-sidecar-cleaner.sh`.
 
-**Tip:** The script creates temporary files. Install the script in its own directory.
+> [!TIP]
+> The script creates temporary files. Install the script in its own directory.
 
 ## Usage
 
@@ -34,17 +35,22 @@ Features:
 3. Open the shell.
 4. Change to the directory containing the script.
 5. Create the search command: `photo-sidecar-cleaner.sh <Folder> xmp`  
-     **Tips:** 
-     - You can also search for other sidecar files. Replace `xmp` with, for example, `dop` to search for sidecar files from DxO PhotoLab.
-     - Exclude directories: You can speed up the search if you want to ignore certain directories. On Synology NAS systems, for example, you can exclude `@eaDir` folders. Append `@eaDir` to the search command.
+> [!TIP]
+> - You can also search for other sidecar files. Replace `xmp` with, for example, `dop` to search for sidecar files from DxO PhotoLab.
+> - Exclude directories: You can speed up the search if you want to ignore certain directories. On Synology NAS systems, for example, you can exclude `@eaDir` folders. Append `@eaDir` to the search command.
 6. Execute the search.
 
 **Results:**
 
 The following files are created in the script's directory:
-- `delete_commands.sh`: Sidecar files that can be deleted.
-- `found.txt`: Image files that were found.
-- `found_files_total.txt`: All sidecar files.
+| File                    | Remark                             |
+| ----------------------- | ---------------------------------- |
+| `delete_commands.sh`    | Sidecar files that can be deleted. |
+| `found.txt`             | Image files that were found.       |
+| `found_files_total.txt` | All sidecar files.                 |
+
+> [!NOTE]
+> Each time the script executes, these files will be overwritten.
 
 ### Review and Deletion
 
@@ -59,13 +65,15 @@ The following files are created in the script's directory:
 
 #### Lightroom Classic
 
-**Note:** This procedure is only possible if you have configured Lightroom Classic to save metadata in XMP files. This is not the case by default. See [Metadata and XMP](https://helpx.adobe.com/lightroom-classic/help/metadata-basics-actions.html). As our [scenario shows](#why-can-there-be-orphaned-sidecar-files), it makes sense to enable the setting `Automatically write changes into XMP`. If you store metadata in the Lightroom catalog, you must search for the change manually: [
+> [!NOTE]
+> This procedure is only possible if you have configured Lightroom Classic to save metadata in XMP files. This is not the case by default. See [Metadata and XMP (Adobe Help)](https://helpx.adobe.com/lightroom-classic/help/metadata-basics-actions.html). As our [scenario shows](#why-can-there-be-orphaned-sidecar-files), it makes sense to enable the setting `Automatically write changes into XMP`. If you store metadata in the Lightroom catalog, you must search for the change manually: [
 Find missing photos (Adobe Help)](https://helpx.adobe.com/lightroom-classic/help/locate-missing-photos.html).
 
 1. Switch to Library mode.
 2. Expand the Folder panel.
-3. Right-click on a folder and select the command `Synchronize Folder`.  
-  **Note:** This command does not synchronize with the cloud.
+3. Right-click on a folder and select the command `Synchronize Folder`.
+> [!NOTE]
+> This command does not synchronize with the cloud.
 4. Activate the option `Remove Missing Pictures`.
 
 **Result:** The catalog is updated.
@@ -74,11 +82,13 @@ Find missing photos (Adobe Help)](https://helpx.adobe.com/lightroom-classic/help
 
 Unlike other image programs, DxO does not use a database. Therefore, an update is not necessary.
 
-**Note:** If you work with projects, removing image files will cause inconsistencies in DxO PhotoLab's project database. In this case, only creating a new project can help.
+> [!NOTE]
+> If you work with projects, removing image files will cause inconsistencies in DxO PhotoLab's project database. In this case, only creating a new project can help.
 
 #### Capture One
 
-**Note:** Capture One usually detects changes to cataloged content automatically.
+> [!NOTE]
+> Capture One usually detects changes to cataloged content automatically.
 
 1. Switch to the Library tab.
 2. Right-click on a folder and select the command `Synchronize`.
