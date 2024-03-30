@@ -59,7 +59,7 @@ Result: The sidecar files have been deleted.
 
 #### Lightroom Classic
 
-Note: This procedure is only possible if you have configured Lightroom Classic to save metadata in XMP files. This is not the case by default. See [Metadata and XMP](https://helpx.adobe.com/lightroom-classic/help/metadata-basics-actions.html). As our scenario shows, it makes sense to enable the setting `Automatically write changes into XMP`. If you store metadata in the Lightroom catalog, you must search for the change manually: [
+Note: This procedure is only possible if you have configured Lightroom Classic to save metadata in XMP files. This is not the case by default. See [Metadata and XMP](https://helpx.adobe.com/lightroom-classic/help/metadata-basics-actions.html). As our [scenario shows](#why-can-there-be-orphaned-sidecar-files), it makes sense to enable the setting `Automatically write changes into XMP`. If you store metadata in the Lightroom catalog, you must search for the change manually: [
 Find missing photos (Adobe Help)](https://helpx.adobe.com/lightroom-classic/help/locate-missing-photos.html).
 
 1. Switch to Library mode.
