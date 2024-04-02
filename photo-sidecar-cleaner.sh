@@ -58,14 +58,13 @@ if [ ! -z "$EXCLUDE_DIRS" ]; then
             EXCLUDE_STRING="$EXCLUDE_STRING -o -name '$i'"
         done
         # Encloses the exclusion string in parentheses and appends it for the find command
-        EXCLUDE_STRING="( $EXCLUDE_STRING ) -prune -o"
+        EXCLUDE_STRING="-type d \( $EXCLUDE_STRING \) -prune -o"
     fi
 fi
 
 # Searches for files excluding the specified directories
 echo "Searching for files..."
 eval find "$SEARCH_DIR" $EXCLUDE_STRING -type f -iname "*.$FILE_EXTENSION" -print0 | xargs -0 -P "$CORES" -I {} bash -c 'echo "\""{}"\"" >> '"$FILES_TOTAL"
-# Uses -print0 and xargs -0 for safe handling of filenames with special characters
 
 # Checks if the output file exists and is not empty
 if [ -s "$FILES_TOTAL" ]; then
