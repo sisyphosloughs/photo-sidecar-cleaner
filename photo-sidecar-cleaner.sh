@@ -58,7 +58,7 @@ if [ ! -z "$EXCLUDE_DIRS" ]; then
             EXCLUDE_STRING="$EXCLUDE_STRING -o -name '$i'"
         done
         # Encloses the exclusion string in parentheses and appends it for the find command
-        EXCLUDE_STRING="\( $EXCLUDE_STRING \) -prune -o"
+        EXCLUDE_STRING="( $EXCLUDE_STRING ) -prune -o"
     fi
 fi
 
