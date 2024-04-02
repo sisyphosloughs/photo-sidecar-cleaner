@@ -46,7 +46,7 @@ export -f process_entry
 export FOUND_PAIRS
 export NOT_FOUND
 
-# Constructs a string to exclude directories from the search
+# Construct find command's string to exclude directories from the search
 EXCLUDE_STRING=""
 if [ ! -z "$EXCLUDE_DIRS" ]; then
     IFS=',' read -ra ADDR <<< "$EXCLUDE_DIRS" # Splits the EXCLUDE_DIRS variable into an array
@@ -79,9 +79,3 @@ if [ -s "$FILES_TOTAL" ]; then
 else
     echo "No files found."
 fi
-
-# Commented out commands for cleanup at the end of the script
-# rm "$FILES_TOTAL"
-# rm "$FOUND_PAIRS"
-
-echo "Execution completed."
