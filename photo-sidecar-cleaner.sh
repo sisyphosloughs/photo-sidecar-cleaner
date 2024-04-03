@@ -90,8 +90,8 @@ if [ -s "$FILES_TOTAL" ]; then
     # Counts the entries in the output files
     COUNT_FOUND=$(wc -l < "$FOUND_PAIRS")
     COUNT_NOT_FOUND=$(wc -l < "$NOT_FOUND")
-    echo "$COUNT_FOUND files found that have related files."
-    echo "$COUNT_NOT_FOUND files found that have no related files."
+    echo "$COUNT_FOUND files found that have related files (see $FOUND_PAIRS)."
+    echo "$COUNT_NOT_FOUND files found that have no related files (see $NOT_FOUND)."
 else
     echo "No files found."
 fi
