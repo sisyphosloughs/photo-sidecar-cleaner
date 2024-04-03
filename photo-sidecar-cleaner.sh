@@ -3,7 +3,7 @@
 # Checks if the necessary parameters were passed
 if [ $# -lt 2 ]; then
     echo "Usage: $0 <DirectoryPath> <FileExtension> [ExcludeDirectories]"
-    echo "Example: $0 /path/to/folder txt temp,@eaDir"
+    echo "Example: $0 /path/to/folder xmp temp,@eaDir"
     exit 1
 fi
 
