@@ -11,7 +11,7 @@ Features:
 
 ## Requirements
 
-- Knowledge of using the shell on Linux or macOS is required.
+- Basic Knowledge of using the shell on Linux or macOS is required.
 - Optional: Git installation on your computer.
 
 ## Installation
@@ -100,7 +100,7 @@ Unlike other image programs, DxO does not use a database. Therefore, an update i
 
 ### What are sidecar files?
 
-Usually, we store metadata, such as location or ratings of images, not in the image file itself but outside. This protects the image file. Most often, sidecar files have the extension XMP. These sidecar files differ from an image file only by the extension.
+Typically, metadata such as tags or ratings of photos are stored not in the photo file itself but externally. This protects the image file. Most often, sidecar files have the extension XMP. These sidecar files differ from an image file only by the extension.
 
 Moreover, there can also be other extensions. For example, the program DxO PhotoLab saves its processing steps in DOP files. There can also be other file types. Therefore, I wrote the script so that you can search for any type.
 
@@ -108,7 +108,7 @@ Moreover, there can also be other extensions. For example, the program DxO Photo
 
 The cause is often an unthoughtful workflow, leading to an image ending up in different folders. Therefore, a good strategy for storing image files is worthwhile to avoid unwanted redundancies.
 
-When we edit images with a program, the original image file usually remains unchanged. However, changes often occur to the sidecar files. With Lightroom, an image does not even need to be changed for this to happen. If we export an unchanged image file, the export is saved in the sidecar file. If such an image is also located elsewhere, the image files do not differ, but the sidecar files do.
+When we edit images with a program, the original image file usually remains unchanged. However, changes often occur to the sidecar files. With Lightroom, an image does not even need to be changed for this to happen. If we export an unchanged image file, data about the export is saved in the sidecar file. If such an image is also located elsewhere, the image files do not differ, but the sidecar files do.
 
 If we want to clean up our data structure, we can find and delete duplicate images with a duplicate search. Since the sidecar files differ, the duplicate search cannot help us here.
 
@@ -120,3 +120,7 @@ Find missing photos (Adobe Help)](https://helpx.adobe.com/lightroom-classic/help
 ### Does the script automatically delete sidecar files?
 
 No, files are only deleted if you execute the file `delete_commands.sh` created by the script. Therefore, you should check this file before you run it.
+
+## See also
+
+- [Move-Photos-by-Date: My script for sorting photos into folders organized by their creation date](https://github.com/sisyphosloughs/move-photos-by-date)
