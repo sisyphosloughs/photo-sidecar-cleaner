@@ -1,4 +1,4 @@
-# Photo-Sidecar-Cleaner
+# Photo Sidecar Cleaner
 
 This script searches for [sidecar files](#what-are-sidecar-files) of images for which the actual images no longer exist.
 
