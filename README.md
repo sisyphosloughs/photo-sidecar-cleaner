@@ -20,7 +20,7 @@ Features:
 2. Make the script executable: `chmod +x photo-sidecar-cleaner.sh`.
 
 > [!TIP]
-> The script creates temporary files. Therefore, install the script in its own directory, to keep your folder clean.
+> The script creates temporary files. Therefore, install the script in its own folder, to keep your folder clean.
 
 ## Usage
 
@@ -33,16 +33,16 @@ Features:
 1. Identify a folder that may contain orphaned sidecar files.
 2. Copy the folder path.
 3. Open the shell.
-4. Change to the directory containing the script.
+4. Change to the folder containing the script.
 5. Create the search command: `photo-sidecar-cleaner.sh <Folder> xmp`  
 > [!TIP]
 > - You can also search for other sidecar files. Replace `xmp` with, for example, `dop` to search for sidecar files from DxO PhotoLab.
-> - Exclude directories: You can speed up the search if you want to ignore certain directories. On Synology NAS systems, for example, you can exclude `@eaDir` folders. Append `@eaDir` to the search command.
+> - Exclude folders: You can speed up the search if you want to ignore certain folders. On Synology NAS systems, for example, you can exclude `@eaDir` folders. Append `@eaDir` to the search command.
 6. Execute the search.
 
 **Results:**
 
-The following files are created in the script's directory:
+The following files are created in the script's folder:
 | File                    | Remark                             |
 | ----------------------- | ---------------------------------- |
 | `delete_commands.sh`    | Sidecar files that can be deleted. |
@@ -66,7 +66,7 @@ The following files are created in the script's directory:
 #### Lightroom Classic
 
 > [!NOTE]
-> This procedure is only possible if you have configured Lightroom Classic to save metadata in XMP files. This is not the case by default. See [Metadata and XMP (Adobe Help)](https://helpx.adobe.com/lightroom-classic/help/metadata-basics-actions.html). As our [scenario shows](#why-can-there-be-orphaned-sidecar-files), it makes sense to enable the setting `Automatically write changes into XMP`. If you store metadata in the Lightroom catalog, you must search for the change manually: [
+> This procedure is only possible if you have configured Lightroom Classic to save metadata in XMP files. This is not the case by default. See [Metadata and XMP (Adobe Help)](https://helpx.adobe.com/lightroom-classic/help/metadata-basics-actions.html). As our [scenario shows](#why-can-there-be-orphaned-sidecar-files), it makes sense to enable the setting `Automatically write changes into XMP`. If you store metadata in the Lightroom Classic catalog, you must search for the change manually: [
 Find missing photos (Adobe Help)](https://helpx.adobe.com/lightroom-classic/help/locate-missing-photos.html).
 
 1. Switch to Library mode.
@@ -110,7 +110,7 @@ See also: [Sidecar file (Wikipedia)](https://en.wikipedia.org/wiki/Sidecar_file)
 
 The cause is often an unthoughtful workflow, leading to an image ending up in different folders. Therefore, a good strategy for storing image files is worthwhile to avoid unwanted redundancies.
 
-When we edit images with a program, the original image file usually remains unchanged. However, changes often occur to the sidecar files. With Lightroom, an image does not even need to be changed for this to happen. If we export an unchanged image file, data about the export is saved in the sidecar file. If such an image is also located elsewhere, the image files do not differ, but the sidecar files do.
+When we edit images with a program, the original image file usually remains unchanged. However, changes often occur to the sidecar files. With Lightroom Classic, an image does not even need to be changed for this to happen. If we export an unchanged image file, data about the export is saved in the sidecar file. If such an image is also located elsewhere, the image files do not differ, but the sidecar files do.
 
 If we [clean up our data structure](https://github.com/sisyphosloughs/move-photos-by-date), we can find and delete duplicate images with a duplicate search. Since the sidecar files differ, the duplicate search cannot help us here.
 
