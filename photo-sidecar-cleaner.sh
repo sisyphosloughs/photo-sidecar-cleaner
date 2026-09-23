@@ -1,5 +1,19 @@
 #!/bin/bash
 
+cpu_count() {
+  if out=$(nproc 2>/dev/null); then
+    printf '%s\n' "$out"
+  elif out=$(sysctl -n hw.ncpu 2>/dev/null); then
+    printf '%s\n' "$out"
+  else
+    getconf _NPROCESSORS_ONLN
+  fi
+}
+
+if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
+  return 0
+fi
+
 # Checks if the necessary parameters were passed
 if [ $# -lt 2 ]; then
     echo "Usage: $0 <DirectoryPath> <FileExtension> [ExcludeDirectories]"
@@ -13,7 +27,7 @@ FILE_EXTENSIONS=$2 # A list of file extensions to search for
 EXCLUDE_DIRS=$3 # Optional: A list of directories to be excluded from the search
 
 # Determines the number of CPU cores for parallel processing
-CORES=$(nproc)
+CORES=$(cpu_count)
 
 # Defines a function to process each found entry
 process_entry() {
