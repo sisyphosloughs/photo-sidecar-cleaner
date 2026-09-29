@@ -17,13 +17,17 @@ CORES=$(nproc)
 
 # Defines a function to process each found entry
 process_entry() {
-    local entry=$1 # The full path to the file
-    local base="${entry%%.*}" # Removes the file extension from the path
-    local dir="$(dirname "$entry")" # Determines the directory of the file
-    local filename="$(basename "$base")" # Extracts the filename without extension
-    local found_files=$(find "$dir" -maxdepth 1 -type f -name "$filename.*" ! -name "$(basename "$entry")")
+    local entry="$1" # The full path to the file
+    local dir
+    dir="$(dirname "$entry")" # Determines the directory of the file
+    # Strip extension from the basename only (%%.* on the full path breaks on dotted dirs)
+    local filename
+    filename="$(basename "$entry")"
+    filename="${filename%.*}"
+    local found_files
+    found_files=$(find "$dir" -maxdepth 1 -type f -name "$filename.*" ! -name "$(basename "$entry")")
 
-    # Searches for files in the same directory that have the same name but a different extension    
+    # Searches for files in the same directory that have the same name but a different extension
     if [ -n "$found_files" ]; then
         # Adds the found files to the FOUND_PAIRS list, if present
         echo "$found_files" >> "$FOUND_PAIRS"
@@ -46,47 +50,45 @@ export -f process_entry
 export FOUND_PAIRS
 export NOT_FOUND
 
-# Construct find command's string to exclude directories from the search
-EXCLUDE_STRING=""
-if [ ! -z "$EXCLUDE_DIRS" ]; then
+# Build find arguments without eval so paths with spaces stay one argument
+find_args=("$SEARCH_DIR")
+
+if [ -n "$EXCLUDE_DIRS" ]; then
     IFS=',' read -ra ADDR <<< "$EXCLUDE_DIRS" # Splits the EXCLUDE_DIRS variable into an array
     if [ ${#ADDR[@]} -gt 0 ]; then
-        # Constructs the exclusion string for find, starting with the first directory
-        EXCLUDE_STRING="-name '${ADDR[0]}'"
+        find_args+=(-type d "(" -name "${ADDR[0]}")
         for i in "${ADDR[@]:1}"; do
-            # Adds additional directories to the exclusion
-            EXCLUDE_STRING="$EXCLUDE_STRING -o -name '$i'"
+            find_args+=(-o -name "$i")
         done
-        # Encloses the exclusion string in parentheses and appends it for the find command
-        EXCLUDE_STRING="-type d \( $EXCLUDE_STRING \) -prune -o"
+        find_args+=(")" -prune -o)
     fi
 fi
 
-# Construct find command's include string for file extensions
-INCLUDE_STRING=""
-if [ ! -z "$FILE_EXTENSIONS" ]; then
+if [ -n "$FILE_EXTENSIONS" ]; then
     IFS=',' read -ra ADDR <<< "$FILE_EXTENSIONS" # Splits the FILE_EXTENSIONS variable into an array
     if [ ${#ADDR[@]} -gt 0 ]; then
-        # Constructs the exclusion string for find, starting with the first directory
-        INCLUDE_STRING="-iname '*.${ADDR[0]}'"
+        find_args+=(-type f "(" -iname "*.${ADDR[0]}")
         for i in "${ADDR[@]:1}"; do
-            # Adds additional directories to the exclusion
-            INCLUDE_STRING="$INCLUDE_STRING -o -iname '*.$i'"
+            find_args+=(-o -iname "*.$i")
         done
-        # Encloses the exclusion string in parentheses and appends it for the find command
-        INCLUDE_STRING="-type f \( $INCLUDE_STRING \)"
+        find_args+=(")")
     fi
 fi
 
 # Searches for files excluding the specified directories
 echo "Searching for files..."
-eval find "$SEARCH_DIR" $EXCLUDE_STRING $INCLUDE_STRING -print0 | xargs -0 -P "$CORES" -I {} bash -c 'echo "\""{}"\"" >> '"$FILES_TOTAL"
+while IFS= read -r -d '' entry; do
+    printf '%s\n' "$entry" >> "$FILES_TOTAL"
+done < <(find "${find_args[@]}" -print0)
 
 # Checks if the output file exists and is not empty
 if [ -s "$FILES_TOTAL" ]; then
     echo "Found files are listed in $FILES_TOTAL."
-    # Processes each found file in parallel
-    cat "$FILES_TOTAL" | xargs -n 1 -P "$CORES" -I {} bash -c "process_entry \"{}\""
+    # Re-emit null-delimited paths so xargs -0 keeps spaces intact (macOS xargs has no -d)
+    while IFS= read -r entry || [ -n "$entry" ]; do
+        [ -z "$entry" ] && continue
+        printf '%s\0' "$entry"
+    done < "$FILES_TOTAL" | xargs -0 -P "$CORES" -I {} bash -c 'process_entry "$@"' _ {}
     # Counts the entries in the output files
     COUNT_FOUND=$(wc -l < "$FOUND_PAIRS")
     COUNT_NOT_FOUND=$(wc -l < "$NOT_FOUND")
